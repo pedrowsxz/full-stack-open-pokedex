@@ -20,6 +20,6 @@ jobs:
       - name: Make production build
         run: npm run build
       - name: Deployment with deploy hook
-        run: curl secrets.DEPLOY_HOOK_URL
+        run: curl ${{ secrets.DEPLOY_HOOK }}
       
       
