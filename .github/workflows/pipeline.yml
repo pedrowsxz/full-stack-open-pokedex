@@ -27,6 +27,5 @@ jobs:
           serviceId: ${{ secrets.RENDER_SERVICE_ID }}
           apiKey: ${{ secrets.RENDER_API_KEY }}
           multipleDeployment: false
-      '''- name: Deployment with deploy hook
-        run: curl secrets.DEPLOY_HOOK_URL'''
+      
       
