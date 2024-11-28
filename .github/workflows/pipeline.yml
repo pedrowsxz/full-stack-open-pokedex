@@ -19,7 +19,5 @@ jobs:
         run: npm run eslint
       - name: Make production build
         run: npm run build
-      - name: Run production build
-        run: npm run start-prod
       - name: Run tests
         run: npm test
