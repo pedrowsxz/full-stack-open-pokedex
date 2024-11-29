@@ -60,7 +60,7 @@ jobs:
           severity: info
           details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          color: 00FF00
+          color: '00FF00'
           text: A new version of pokedex deployed
       - name: The job has failed
         uses: rjstone/discord-webhook-notify@v1
@@ -69,7 +69,7 @@ jobs:
           severity: error
           details: Test Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          color: FF0000
+          color: 'FF0000'
           text: Build failed
 
   health_check:
