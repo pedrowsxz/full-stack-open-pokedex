@@ -70,19 +70,19 @@ jobs:
         text: Build failed
 
   health_check:
-  needs: [simple_deployment_pipeline]
-  runs-on: ubuntu-20.04
-  steps:
-    - name: Check the deployed service URL
-      uses: jtalk/url-health-check-action@v4
-      with:
-        url: https://full-stack-open-pokedex-1-9e5r.onrender.com
-        max-attempts: 3 
-        retry-delay: 5s 
-        retry-all: false 
-        cookie: "token=asdf1234"
-    - name: Notify if the health check fails
-      if: ${{ failure() }}
-      run: |
-        echo "Health check failed. The server might be down."
-        exit 1
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v4
+        with:
+          url: https://full-stack-open-pokedex-1-9e5r.onrender.com
+          max-attempts: 3 
+          retry-delay: 5s 
+          retry-all: false 
+          cookie: "token=asdf1234"
+      - name: Notify if the health check fails
+        if: ${{ failure() }}
+        run: |
+          echo "Health check failed. The server might be down."
+          exit 1
