@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
-    pull_request:
-      branches: [main]
-      types: [opened, synchronize]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   simple_deployment_pipeline:
@@ -43,3 +45,44 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           DRY_RUN: true
+
+  discord_notification:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+    - name: The job has succeeded
+      uses: rjstone/discord-webhook-notify@v1
+      if: ${{ success() }}
+      with:
+        severity: info
+        details: Test Succeeded!
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        color: 00FF00
+        text: A new version of pokedex deployed
+    - name: The job has failed
+      uses: rjstone/discord-webhook-notify@v1
+      if: ${{ failure() }}
+      with:
+        severity: error
+        details: Test Failed!
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        color: FF0000
+        text: Build failed
+
+  health_check:
+  needs: [simple_deployment_pipeline]
+  runs-on: ubuntu-20.04
+  steps:
+    - name: Check the deployed service URL
+      uses: jtalk/url-health-check-action@v4
+      with:
+        url: https://full-stack-open-pokedex-1-9e5r.onrender.com
+        max-attempts: 3 
+        retry-delay: 5s 
+        retry-all: false 
+        cookie: "token=asdf1234"
+    - name: Notify if the health check fails
+      if: ${{ failure() }}
+      run: |
+        echo "Health check failed. The server might be down."
+        exit 1
