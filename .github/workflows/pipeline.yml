@@ -50,18 +50,18 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-      - name: The job has succeeded
-        uses: rjstone/discord-webhook-notify@v1
       - name: Print Discord Webhook URL (masked for security)
         run: |
           echo "DISCORD_WEBHOOK is set to: ${{ secrets.DISCORD_WEBHOOK }}"
-      if: ${{ success() }}
-      with:
-        severity: info
-        details: Test Succeeded!
-        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        color: 00FF00
-        text: A new version of pokedex deployed
+      - name: The job has succeeded
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+          severity: info
+          details: Test Succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          color: 00FF00
+          text: A new version of pokedex deployed
       - name: The job has failed
         uses: rjstone/discord-webhook-notify@v1
         if: ${{ failure() }}
