@@ -52,6 +52,9 @@ jobs:
     steps:
     - name: The job has succeeded
       uses: rjstone/discord-webhook-notify@v1
+      - name: Print Discord Webhook URL (masked for security)
+        run: |
+          echo "DISCORD_WEBHOOK is set to: ${{ secrets.DISCORD_WEBHOOK }}"
       if: ${{ success() }}
       with:
         severity: info
