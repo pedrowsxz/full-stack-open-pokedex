@@ -56,7 +56,7 @@ jobs:
         with:
           severity: info
           details: Test Succeeded!
-          webhookUrl: https://study.cs.helsinki.fi/discord/webhooks/1264842173619109949
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           color: '#00FF00'
           text: A new version of pokedex deployed
       - name: The job has failed
@@ -65,7 +65,7 @@ jobs:
         with:
           severity: error
           details: Test Failed!
-          webhookUrl: https://study.cs.helsinki.fi/discord/webhooks/1264842173619109949
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           color: '#FF0000'
           text: Build failed
 
