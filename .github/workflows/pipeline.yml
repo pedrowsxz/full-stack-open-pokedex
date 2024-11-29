@@ -46,12 +46,12 @@ jobs:
           DEFAULT_BUMP: patch
           DRY_RUN: true
 
-  discord_notification:
+  Discord Webhook Notify:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
       - name: The job has succeeded
-        uses: rjstone/discord-webhook-notify@v1
+        uses: rjstone/discord-webhook-notify@v1.0.4
         if: ${{ success() }}
         with:
           severity: info
@@ -60,7 +60,7 @@ jobs:
           color: '#00FF00'
           text: A new version of pokedex deployed
       - name: The job has failed
-        uses: rjstone/discord-webhook-notify@v1
+        uses: rjstone/discord-webhook-notify@v1.0.4
         if: ${{ failure() }}
         with:
           severity: error
