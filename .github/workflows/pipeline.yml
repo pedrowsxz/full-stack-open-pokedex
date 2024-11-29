@@ -50,8 +50,8 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-    - name: The job has succeeded
-      uses: rjstone/discord-webhook-notify@v1
+      - name: The job has succeeded
+        uses: rjstone/discord-webhook-notify@v1
       - name: Print Discord Webhook URL (masked for security)
         run: |
           echo "DISCORD_WEBHOOK is set to: ${{ secrets.DISCORD_WEBHOOK }}"
